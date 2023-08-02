@@ -4,12 +4,13 @@
 1. It can process financial transactions information read from CSV file.
 2. The CSV input file can be read from local file system or from AWS S3 bucket.
 3. It persists transactions and accounts into a relational database (MySQL).
-4. It sends an summary email listing transactions aggregated data. 
+4. It sends a summary email listing transactions aggregated data. 
 5. It can be easily branded.
 6. It can be executed on local, container or lambda environments.
 
-##Run locally on MacOS
-Install Go: Make sure you have Go installed on your system. You can download it from the official Go website (https://golang.org/) and follow the installation instructions.
+## Run locally on macOS
+### Install Go:
+Make sure you have Go installed on your system. You can download it from the official Go website (https://golang.org/) and follow the installation instructions.
 
 ### Clone the repository: Clone this repository to your local machine using git clone.
 
@@ -32,7 +33,7 @@ LOCAL_CSV_FILE_PATH=/Users/[your_user]/code/stori/fixtures/sample_input.csv
 ```
 
 ## Mailer
-###$ The mailer is set up with Gmail, but it can be easily changed modifying `mailer.NewMailer` 
+#### The mailer is set up with Gmail, but it can be easily changed modifying `mailer.NewMailer` 
 
 Before setting up the environment make sure you count with an application specific password
 https://support.google.com/accounts/answer/185833?hl=en
@@ -50,24 +51,26 @@ AWS_SECRET_ACCESS_KEY=[ACCESS_KEY]
 ```
 
 ## Database
-### You can run a local container [db service listed on docker-compose]. 
-### Or deploy an RDS instance with the Terraform main.tf .
+ You can run a local container [db service listed on docker-compose]. 
 
-#### Regardless of your choice, please, have the variables setup.
+ Or deploy an RDS instance with the Terraform main.tf .
+
+#### Regardless of your choice, please, set the environment variables for MySQL.
 ```shell
 MYSQL_HOST=db
 MYSQL_USER=root
 MYSQL_PASSWORD=stori123
 MYSQL_DB=stori
 MYSQL_PORT=3306
+```
 
-## Install dependencies: 
+## Install dependencies:
 This project uses AWS SDKs and MySQL driver. Use go get to install the required dependencies.
 ```shell
 go get
 ```
 ### Program flags
-The program recevies and address flag
+The program receives and address flag
 ```shell
 summary-mailer -address="you@example.com"
 ```
@@ -89,10 +92,10 @@ You can make a copy of `run.example.sh` and replace the environment variables an
 cp run.example.sh run.sh
 ```
 
-### Test
-Run the tests
+### Testing
+Run the unit tests 
 ```shell
-go test ./...
+go test -cover ./...
 ```
 
 ### Run with Docker compose
