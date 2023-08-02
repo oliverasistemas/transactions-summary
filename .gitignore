@@ -1,0 +1,15 @@
+.DS_Store
+.idea/
+.vscode/
+/build
+
+#Builds
+/bash/main
+/bash/main.zip
+
+# Terraform
+/tf/.terraform*
+/tf/terraform.tfstate*
+
+/tf/lambda_function.zip
+/run.sh

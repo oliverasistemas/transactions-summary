@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    environment:
+      - AWS_ACCESS_KEY_ID=[KEY_ID]
+      - AWS_REGION=[region] # Optional
+      - AWS_SECRET_ACCESS_KEY=[ACCESS_KEY]
+      - EMAIL_FROM=[your_account]@gmail.com #Replace with your Gmail account
+      - EMAIL_PASSWORD=[application_password] #Replace with your account application_password
+      - MYSQL_DB=stori
+      - MYSQL_HOST=db
+      - MYSQL_PASSWORD=stori123
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - S3_BUCKET_NAME=[bucket]
+      - S3_FILE_KEY=[file_name].csv
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: db
+    ports:
+      - "3306:3306"
+    image: mysql:latest
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    environment:
+        MYSQL_ROOT_PASSWORD: stori123
+        MYSQL_DATABASE: stori
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
